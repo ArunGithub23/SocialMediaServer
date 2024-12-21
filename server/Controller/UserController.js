@@ -1,6 +1,68 @@
 const UserModel=require('../Models/userModel.js')
 
 
+
+// searchuser
+
+
+const searchuser=async(req,res)=>{
+
+
+    const {searchString}=req.body;
+    console.log('searchuser00',searchString);
+
+
+    try {
+        console.log('searchuser01');
+
+        // const searchString = "example"; 
+        const users = await UserModel.find({ 
+          username: { $regex: searchString, $options: "i" } 
+        }).limit(5);
+        
+        // console.log('allsuers',users);
+        
+
+            res.json(users);
+      
+
+    } catch (error) {
+        res.json(error)
+    }
+}
+
+
+
+
+
+// get all users
+const allusers=async(req,res)=>{
+    console.log('allsuers00');
+
+
+    try {
+        console.log('allsuers1');
+
+        const user=await UserModel.find({});
+        console.log('allsuers',user);
+        
+
+        if(user){
+            res.json(user);
+        }
+        else{
+            res.json("no such user exists")
+        }
+
+
+    } catch (error) {
+        res.json(error)
+    }
+}
+
+
+
+
 //get user
 
 const getUser=async(req,res)=>{
@@ -8,6 +70,7 @@ const getUser=async(req,res)=>{
     const id=req.params.id;
 
     try {
+        console.log("okk1");
         
         const user=await UserModel.findById(id);
         const {password,...otherParameters}=user._doc;
@@ -78,6 +141,8 @@ const followUser=async(req,res)=>{
 
     const id=req.params.id;
     const {currentUserId}=req.body;
+    console.log("currentuser",currentUserId);
+    
 
     if(currentUserId===id){
         res.status(403).json("Action Forbidden")
@@ -132,4 +197,8 @@ const unfollowUser=async(req,res)=>{
     }
 }
 
-module.exports={getUser,updateUser,deleteUser,followUser,unfollowUser}
+
+
+
+
+module.exports={getUser,updateUser,deleteUser,followUser,allusers,unfollowUser,searchuser}
