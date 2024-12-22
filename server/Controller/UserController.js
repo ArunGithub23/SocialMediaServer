@@ -18,7 +18,7 @@ const searchuser=async(req,res)=>{
         // const searchString = "example"; 
         const users = await UserModel.find({ 
           username: { $regex: searchString, $options: "i" } 
-        }).limit(5);
+        }).limit(5).select("-password");;
         
         // console.log('allsuers',users);
         
