@@ -44,7 +44,7 @@ const allusers=async(req,res)=>{
         console.log('allsuers1');
 
         const user=await UserModel.find({});
-        console.log('allsuers',user);
+        // console.log('allsuers',user);
         
 
         if(user){

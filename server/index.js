@@ -11,7 +11,9 @@ app.use(cors())
 const AuthRoute=require('./Routes/AuthRoute.js');
 const UserRoute=require('./Routes/UserRoute.js');
 const PostRoute=require('./Routes/PostRoute.js')
-const UploadRoute=require('./Routes/UploadRoute.js')
+const UploadRoute=require('./Routes/UploadRoute.js');
+const { ChatRoute } = require('./Routes/ChatRoute.js');
+
 app.use(express.json())
 
 dotenv.config();
@@ -29,6 +31,7 @@ app.use('/auth',AuthRoute);
 app.use('/user',UserRoute);
 app.use('/post',PostRoute);
 app.use('/upload',UploadRoute)
+app.use('/chat',ChatRoute)
 
 
 
