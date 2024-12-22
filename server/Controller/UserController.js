@@ -43,7 +43,7 @@ const allusers=async(req,res)=>{
     try {
         console.log('allsuers1');
 
-        const user=await UserModel.find({});
+        const user=await UserModel.find({}).select("-password");
         // console.log('allsuers',user);
         
 
