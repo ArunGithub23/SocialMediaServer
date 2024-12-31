@@ -16,7 +16,7 @@ const upload = multer({ storage: storage });
 router.post('/', upload.single("file"), (req, res) => {
     try {
         console.log("image upload");
-        return res.status(200).json("file uploaded successfully");
+        return res.status(200).json("file uploaded successfully test");
     } catch (error) {
         console.log(error);
         return res.status(500).json({ error: 'Internal server error' });

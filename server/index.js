@@ -3,7 +3,16 @@ const app=express();
 const dotenv=require('dotenv')
 const cors=require('cors')
 require('./Config/dbcon.js')  //connecction to database
+const multer=require('multer')
+const upload=multer()
 
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }));
+// app.use(upload.any())
+
+
+dotenv.config();
+port=process.env.port;
 
 app.use(cors())
 
@@ -14,10 +23,7 @@ const PostRoute=require('./Routes/PostRoute.js')
 const UploadRoute=require('./Routes/UploadRoute.js');
 const { ChatRoute } = require('./Routes/ChatRoute.js');
 
-app.use(express.json())
 
-dotenv.config();
-port=process.env.port;
 
 //to serve images for public
 

@@ -6,15 +6,18 @@ const mongoose =require('mongoose')
 
 //create Post
  const createPost=async (req,res)=>{
-    console.log("createpost controller")
+    // console.log("createpost controller",req.body,req.cloudinaryResult)
    // console.log("body",req.body)
-    
+    const {userid,desc,}=req.body
+   const  Image=req.cloudinaryResult.url
+   const data={userid,desc,Image}
 
-    const newPost=new PostModel(req.body);
-    console.log("okk2")
+    const newPost=new PostModel(data);
 
     try {
-       const post= await newPost.save()
+
+       const post= await newPost.save() 
+
         res.status(200).json(post)
     } catch (error) {
             res.status(500).json(error)   
@@ -32,6 +35,8 @@ const getPostByUserId=async(req,res)=>{
         
         try {
             const post=await PostModel.find({userid:id})
+            console.log("posts are",post);
+            
             res.status(200).json(post)
         } catch (error) {
             res.status(500).json(error)
@@ -130,6 +135,7 @@ const likePost=async(req,res)=>{
 //getTimeLinePosts
 
 const getTimeLinePosts=async(req,res)=>{
+    
     
 
     const userid=req.params.id

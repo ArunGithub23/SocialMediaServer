@@ -1,8 +1,12 @@
 const express=require('express');
+const multer=require('multer')
+
+const upload = multer({ storage: multer.memoryStorage() });
 const { createPost,updatePost,deletePost,likePost,getTimeLinePosts, getPostByUserId, getPost } = require('../Controller/PostController');
+const uploadToCloudinary = require('../Middleware/uploadCloudanry');
 const router=express.Router();
 
-router.post('/',createPost)
+router.post('/',upload.single('file'),uploadToCloudinary,createPost)
 
 router.get("/:id",getPost)
 router.post("/:id",getPostByUserId)
