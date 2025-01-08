@@ -177,4 +177,26 @@ const getTimeLinePosts=async(req,res)=>{
     }
 
 }
-module.exports={createPost,getPostByUserId,getPost,updatePost,deletePost,likePost,getTimeLinePosts}
+
+
+const getrecentposts=async(req,res)=>{
+
+    // console.log("okk1");
+    
+
+    try {
+        // console.log("okk2");
+
+        const result=await PostModel.find().sort({ createdAt: -1 }).limit(10);
+        // console.log("okk3");
+
+        res.send({result,statuscode:200})
+    } catch (error) {
+        // console.log("okk4");
+
+        console.log(error);
+        
+        res.send({msg:'got an error while finding the recent posts',error})
+    }
+}
+module.exports={createPost,getPostByUserId,getPost,updatePost,deletePost,likePost,getTimeLinePosts,getrecentposts}

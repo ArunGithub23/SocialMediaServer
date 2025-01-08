@@ -2,7 +2,7 @@ const express=require('express');
 const app=express(); 
 const dotenv=require('dotenv')
 const cors=require('cors')
-require('./Config/dbcon.js')  //connecction to database
+require('./Config/dbcon.js')  
 const multer=require('multer')
 const upload=multer()
 
@@ -27,8 +27,8 @@ const { ChatRoute } = require('./Routes/ChatRoute.js');
 
 //to serve images for public
 
-app.use(express.static("public"))
-app.use("/images",express.static("images"))
+// app.use(express.static("public"))
+// app.use("/images",express.static("images"))
 
 
 
