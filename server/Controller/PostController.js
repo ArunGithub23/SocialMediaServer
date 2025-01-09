@@ -181,7 +181,7 @@ const getTimeLinePosts=async(req,res)=>{
 
 const getrecentposts=async(req,res)=>{
 
-    // console.log("okk1");
+    console.log("okk1recnt");
     
 
     try {
