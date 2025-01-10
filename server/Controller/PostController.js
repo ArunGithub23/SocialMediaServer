@@ -122,10 +122,10 @@ const likePost=async(req,res)=>{
             
                 const post=await PostModel.findById(id)
                 if (!post.likes.includes(userid)) {
-                    await PostModel.updateOne({$push:{likes:userid}})
+                    await PostModel.updateOne({ _id: id }, {$push:{likes:userid}})
                      res.status(200).json("Post liked")   
                 } else {
-                    await post.updateOne({$pull:{likes:userid}})
+                    await post.updateOne({ _id: id }, {$pull:{likes:userid}})
                      res.status(200).json("Post unliked") 
                 }
 
