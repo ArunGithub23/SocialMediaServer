@@ -13,9 +13,9 @@ router.get("/:id",getPost)
 router.post("/:id",getPostByUserId)
 
 router.post("/:id",updatePost)
-router.post("/:id",deletePost)
+router.post("/deletepost/:id",deletePost)
 router.post("/:id/like",likePost)
-router.get("/:id/timeline",getTimeLinePosts)
+router.get("/:id/timeline",getTimeLinePosts);
 
 
 module.exports=router;

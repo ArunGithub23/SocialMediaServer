@@ -86,21 +86,24 @@ const updatePost=async(req,res)=>{
 //delete post
 const deletePost=async(req,res)=>{
     const id=req.params.id;
-    const {userId}=req.body
+    const {userid}=req.body
 
     try {
         const post=await PostModel.findById(id)
-        if (post.userId===userId) {
+        if (post.userId===userid) {
             await post.deleteOne();
-            res.status(200).json("post deleted")
+            res.status(200).json({msg:"post deleted",statuscode:200})
             
         } else {
-            res.status(403).json("Action Forbidden")
+            res.status(403).json({msg:"Action Forbidden",statuscode:403})
         }
 
 
     } catch (error) {
-        
+
+        console.log(error)
+        res.status(500).json({msg:"Internal server error",statuscode:500})
+
     }
 }
 
@@ -181,7 +184,7 @@ const getTimeLinePosts=async(req,res)=>{
 
 const getrecentposts=async(req,res)=>{
 
-    console.log("okk1recnt");
+    // console.log("okk1recnt");
     
 
     try {
