@@ -90,7 +90,7 @@ const deletePost=async(req,res)=>{
 
     try {
         const post=await PostModel.findById(id)
-        if (post.userId===userid) {
+        if (post.userid===userid) {
             await post.deleteOne();
             res.status(200).json({msg:"post deleted",statuscode:200})
             
