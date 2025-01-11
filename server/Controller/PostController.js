@@ -116,21 +116,30 @@ const likePost=async(req,res)=>{
 
         const id=req.params.id
         const {userid}=req.body
-
-
+        let msg=""
+        console.log("id",id,userid);
+       
         try {
             
+            if(id==null ||id==""|| userid=="" ||userid==null){
+                msg="id or userid is missing in request"
+                throw new defaultError(msg,400)
+                
+            }
+            
                 const post=await PostModel.findById(id)
+                // console.log("post",post);
                 if (!post.likes.includes(userid)) {
+                
                     await PostModel.updateOne({ _id: id }, {$push:{likes:userid}})
-                     res.status(200).json("Post liked")   
+                     res.status(200).json({msg:"Post liked",statuscode:200})   
                 } else {
-                    await post.updateOne({ _id: id }, {$pull:{likes:userid}})
-                     res.status(200).json("Post unliked") 
+                    await PostModel.updateOne({ _id: id }, {$pull:{likes:userid}})
+                     res.status(200).json({msg:"Post unliked",statuscode:200}) 
                 }
 
         } catch (error) {
-         res.status(403).json(error)   
+         res.status(500).json({error,msg})   
         }
 
 }
