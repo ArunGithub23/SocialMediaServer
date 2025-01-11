@@ -92,27 +92,80 @@ const getUser=async(req,res)=>{
 //update  user
 
 const updateUser=async(req,res)=>{
-    const id=req.params.id;
-    const {currentUserId,currentUserAdminStatus,password}=req.body;
-    if(id===currentUserId || currentUserAdminStatus){
+    // const id=req.params.id;
+    const {userid,name,about,livesin,worksAt,relationship}=req.body;
+    let msg="";
+
+
+    
+console.log("userid",userid);
 
         try {
-            const user=await UserModel.findByIdAndUpdate(id,req.body)
-            res.status(200).json(user);
+            if(userid==null||userid==""){
+                msg="userid is required"
+                throw new Error("userid is required12");
+                
+            }
+
+            const user=await UserModel.findById(userid)
+
+            if(user){
+              const updateUser=await user.updateOne({$set:{firstname:name,about,livesin,worksAt,relationship}});
+              const updateUserdata=await UserModel.findById(userid)
+
+                res.status(200).json({msg:"user updated successfully",updateUser,updateUserdata})
+            }
+            else{
+            res.status(200).json({msg:"no such user exists"});
+            }
 
         } catch (error) {
-            res.status(500).json(error)
+            res.status(500).json({msg,error})
         }
 
-
-    }
-
-    else{
-        res.status(403).json("Access denied! you can only  delete your own profile")
-    }
+    
 }
 
 
+
+
+// //update user profile
+
+const updateUserProfile=async(req,res)=>{
+    // const id=req.params.id;
+    const profilePicture=req.cloudinaryResult.url  //edxtracting response form cloudinary
+   const {userid}=req.body;
+    let msg="";
+
+
+    
+console.log("userid",userid,profilePicture);
+
+        try {
+            if(userid==null||userid==""){
+                msg="userid is required"
+                throw new Error("userid is required12");
+                
+            }
+
+            const user=await UserModel.findById(userid)
+
+            if(user){
+              const updateUser=await user.updateOne({$set:{profilePicture}});
+              const updateUserdata=await UserModel.findById(userid)
+
+                res.status(200).json({msg:"user updated successfully",updateUser,updateUserdata})
+            }
+            else{
+            res.status(200).json({msg:"no such user exists"});
+            }
+
+        } catch (error) {
+            res.status(500).json({msg,error})
+        }
+
+    
+}
 //delete user
 const deleteUser=async(req,res)=>{
 
@@ -201,4 +254,4 @@ const unfollowUser=async(req,res)=>{
 
 
 
-module.exports={getUser,updateUser,deleteUser,followUser,allusers,unfollowUser,searchuser}
+module.exports={getUser,updateUser,deleteUser,followUser,allusers,unfollowUser,searchuser,updateUserProfile}
