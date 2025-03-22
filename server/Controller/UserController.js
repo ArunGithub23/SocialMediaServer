@@ -70,7 +70,7 @@ const getUser=async(req,res)=>{
     const id=req.params.id;
 
     try {
-        console.log("okk1");
+        // console.log("okk1");
         
         const user=await UserModel.findById(id);
         const {password,...otherParameters}=user._doc;

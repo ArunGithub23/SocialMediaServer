@@ -46,7 +46,10 @@ const loginUser = async (req, res) => {
           process.env.JWT_key,
           { expiresIn: "1hr" }
         );
-        res.status(200).json({ user, token });
+
+        let {password, ...rest} = user._doc;
+        // console.log("rest",password,rest)
+        res.status(200).json({ rest, token });
       } else {
         res.status(400).json("wrong password");
       }
