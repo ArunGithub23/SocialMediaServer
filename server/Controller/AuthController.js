@@ -42,7 +42,7 @@ const loginUser = async (req, res) => {
     if (user1) {
       if (password == user1.password) {
         const token = jwt.sign(
-          { username: user.username, id: user._id },
+          { username: user1.username, id: user1._id },
           process.env.JWT_key,
           { expiresIn: "1hr" }
         );
