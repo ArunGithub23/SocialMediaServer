@@ -37,19 +37,19 @@ const loginUser = async (req, res) => {
 
   try {
     
-    user = await UserModel.findOne({ username: username });
+    user1 = await UserModel.findOne({ username: username });
    // console.log("user",user)
-    if (user) {
-      if (password == user.password) {
+    if (user1) {
+      if (password == user1.password) {
         const token = jwt.sign(
           { username: user.username, id: user._id },
           process.env.JWT_key,
           { expiresIn: "1hr" }
         );
 
-        let {password, ...rest} = user._doc;
+        let {password, ...user} = user1._doc;
         // console.log("rest",password,rest)
-        res.status(200).json({ rest, token });
+        res.status(200).json({ user, token });
       } else {
         res.status(400).json("wrong password");
       }
